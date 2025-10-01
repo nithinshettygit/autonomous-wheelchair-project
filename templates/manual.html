@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Mode</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        #manual-mode-container {
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 400px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #manual-mode {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Button Layout */
+        .control-row {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        /* Styling for Buttons */
+        .control-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .control-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .control-btn:active {
+            background-color: #003d80;
+        }
+
+        .stop-btn {
+            background-color: #dc3545;
+        }
+
+        .stop-btn:hover {
+            background-color: #a71d2a;
+        }
+
+        .stop-btn:active {
+            background-color: #6e111e;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .back-btn:active {
+            background-color: #1c7430;
+        }
+    </style>
+</head>
+<body>
+    <h1>Manual Control</h1>
+    <div id="manual-mode-container">
+        <div id="manual-mode">
+            <!-- Forward Button -->
+            <div class="control-row">
+                <button class="control-btn" data-command="Forward">Forward</button>
+            </div>
+            <!-- Left, Stop, and Right Buttons -->
+            <div class="control-row">
+                <button class="control-btn" data-command="Left">Left</button>
+                <button class="control-btn stop-btn" data-command="Stop">Stop</button>
+                <button class="control-btn" data-command="Right">Right</button>
+            </div>
+            <!-- Backward Button -->
+            <div class="control-row">
+                <button class="control-btn" data-command="Backward">Backward</button>
+            </div>
+            <!-- Back to Home Button -->
+            <button class="back-btn" onclick="window.location.href='/';">Back to Home</button>
+        </div>
+    </div>
+    <script>
+        const buttons = document.querySelectorAll('.control-btn');
+        let isLongPress = false;
+        let activeCommand = null;
+
+        buttons.forEach(button => {
+            button.addEventListener('mousedown', () => {
+                const command = button.getAttribute('data-command');
+                isLongPress = true;
+                activeCommand = command;
+                sendCommand(command);
+                keepSendingCommand();
+            });
+
+            button.addEventListener('mouseup', () => {
+                isLongPress = false;
+                activeCommand = null;
+            });
+
+            button.addEventListener('mouseleave', () => {
+                isLongPress = false;
+                activeCommand = null;
+            });
+        });
+
+        function sendCommand(command) {
+            fetch('/manual_control', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `command=${command}`
+            });
+        }
+
+        function keepSendingCommand() {
+            if (isLongPress && activeCommand) {
+                sendCommand(activeCommand);
+                setTimeout(keepSendingCommand, 200); // Adjust interval for continuous sending
+            }
+        }
+    </script>
+</body>
+</html>

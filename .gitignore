@@ -1,0 +1,63 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+.env
+.env.*
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.code-workspace
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb~
+
+# Data and large artifacts
+DataCollected/
+*.pth
+*.pt
+*.onnx
+*.avi
+*.mp4
+*.wav
+*.mp3
+*.pptx
+*.zip
+*.tar
+*.tar.gz
+
+# Cache
+.cache/
+.pytest_cache/
+__pypackages__/
+
+# Flask specific
+instance/
+
+# Node (if any)
+node_modules/
+
+# Local tooling
+*.local
+
+# Project-specific unwanted
+unwantedFiles/

@@ -1,0 +1,26 @@
+# Normalize line endings
+* text=auto eol=lf
+
+# Windows-specific exceptions
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# Treat these as binary
+*.pth binary
+*.pt binary
+*.onnx binary
+*.avi binary
+*.mp4 binary
+*.wav binary
+*.mp3 binary
+*.pptx binary
+*.zip binary
+*.tar binary
+*.tar.gz binary
+
+# Images (binary)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.bmp binary
+*.tiff binary

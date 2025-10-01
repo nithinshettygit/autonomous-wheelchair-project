@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomous Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="panel">
+        <h2>Autonomous Mode</h2>
+        <button onclick="startDetection()">Start</button>
+        <button onclick="stopDetection()" class="stop">Stop</button>
+        <br><br>
+        <a href="/"><button>Back to Home</button></a>
+    </div>
+</div>
+<div id="video-container" style="display: none;">
+    <img id="video-feed" src="" alt="Video Feed">
+</div>
+
+<script>
+    function startDetection() {
+        fetch("/start").then(response => {
+            console.log("Detection started");
+            document.getElementById("video-container").style.display = "block";
+            document.getElementById("video-feed").src = "{{ url_for('video_feed') }}";
+        }).catch(err => console.log(err));
+    }
+
+    function stopDetection() {
+        fetch("/stop").then(response => {
+            console.log("Detection stopped");
+            document.getElementById("video-container").style.display = "none";
+            document.getElementById("video-feed").src = "";
+        }).catch(err => console.log(err));
+    }
+</script>
+</body>
+</html>
