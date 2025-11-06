@@ -33,3 +33,4 @@ Project/
 Ensure the camera index in `app.py` suits your environment (default 2).
 
 
+Read more : https://www.notion.so/Autonomous-Wheelchair-Using-Deep-Learning-217fe523d0b480d5b960fa2e51e2910e
